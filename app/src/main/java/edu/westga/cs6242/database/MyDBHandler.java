@@ -2,6 +2,7 @@ package edu.westga.cs6242.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -49,4 +50,27 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.insert(TABLE_PRODUCTS, null, values);
         db.close();
     }
+
+    public Product findProduct(String productname) {
+        String query = "Select * FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Product product = new Product();
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            product.setID(Integer.parseInt(cursor.getString(0)));
+            product.setProductName(cursor.getString(1));
+            product.setQuantity(Integer.parseInt(cursor.getString(2)));
+            cursor.close();
+        } else {
+            product = null;
+        }
+        db.close();
+        return product;
+    }
+
 }
