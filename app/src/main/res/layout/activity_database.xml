@@ -84,18 +84,21 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="newProduct"
             android:text="@string/add_string" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="lookupProduct"
             android:text="@string/find_string" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="removeProduct"
             android:text="@string/delete_string" />
     </LinearLayout>
 </LinearLayout>
