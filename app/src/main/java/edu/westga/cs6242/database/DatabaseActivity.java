@@ -92,9 +92,9 @@ public class DatabaseActivity extends AppCompatActivity {
     public void removeAll(View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 
-        int result = dbHandler.removeAll();
+        boolean result = dbHandler.removeAll();
 
-        if (result > 0) {
+        if (result) {
             idView.setText(R.string.record_deleted);
             productBox.setText("");
             quantityBox.setText("");

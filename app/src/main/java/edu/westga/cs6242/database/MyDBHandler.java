@@ -6,9 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by rcarswel on 2/23/2016.
- */
 public class MyDBHandler extends SQLiteOpenHelper {
 
     public static final String TABLE_PRODUCTS = "products";
@@ -105,6 +102,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_QUANTITY, newProduct.getQuantity());
 
         db.update(TABLE_PRODUCTS, values, COLUMN_ID + " = ?", new String[]{String.valueOf(newProduct.getID())});
+        return true;
+    }
+
+    public boolean removeAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_PRODUCTS, null, null);
         return true;
     }
 }
