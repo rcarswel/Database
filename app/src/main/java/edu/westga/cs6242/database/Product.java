@@ -1,8 +1,5 @@
 package edu.westga.cs6242.database;
 
-/**
- * Created by rcarswel on 2/23/2016.
- */
 public class Product {
 
     private int _id;

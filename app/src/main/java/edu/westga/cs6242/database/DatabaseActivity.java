@@ -71,9 +71,17 @@ public class DatabaseActivity extends AppCompatActivity {
     public void updateProduct(View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 
-        int result = dbHandler.updateProduct();
+        int idNumber = Integer.parseInt(idView.getText().toString());
 
-        if (result > 0) {
+        int newQuantity =
+                Integer.parseInt(quantityBox.getText().toString());
+
+        Product newProduct =
+                new Product(idNumber, productBox.getText().toString(), newQuantity);
+
+        boolean result = dbHandler.updateProduct(newProduct);
+
+        if (result) {
             idView.setText(R.string.record_updated);
             productBox.setText("");
             quantityBox.setText("");
