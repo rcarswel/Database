@@ -12,4 +12,5 @@
     <string name="record_added">Record Added</string>
     <string name="update_string">Update</string>
     <string name="remove_all_string">Remove All</string>
+    <string name="record_updated">Record Updated</string>
 </resources>

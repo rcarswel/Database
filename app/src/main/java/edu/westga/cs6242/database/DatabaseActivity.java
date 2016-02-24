@@ -67,4 +67,30 @@ public class DatabaseActivity extends AppCompatActivity {
         } else
             idView.setText(R.string.no_match_found);
     }
+
+    public void updateProduct(View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+
+        int result = dbHandler.updateProduct();
+
+        if (result > 0) {
+            idView.setText(R.string.record_updated);
+            productBox.setText("");
+            quantityBox.setText("");
+        } else
+            idView.setText(R.string.no_match_found);
+    }
+
+    public void removeAll(View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+
+        int result = dbHandler.removeAll();
+
+        if (result > 0) {
+            idView.setText(R.string.record_deleted);
+            productBox.setText("");
+            quantityBox.setText("");
+        } else
+            idView.setText(R.string.no_match_found);
+    }
 }
