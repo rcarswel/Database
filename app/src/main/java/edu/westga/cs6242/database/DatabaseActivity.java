@@ -33,6 +33,7 @@ public class DatabaseActivity extends AppCompatActivity {
                 new Product(productBox.getText().toString(), quantity);
 
         dbHandler.addProduct(product);
+        idView.setText(R.string.record_added);
         productBox.setText("");
         quantityBox.setText("");
     }

@@ -9,4 +9,7 @@
     <string name="delete_string">Delete</string>
     <string name="no_match_found">No Match Found</string>
     <string name="record_deleted">Record Deleted</string>
+    <string name="record_added">Record Added</string>
+    <string name="update_string">Update</string>
+    <string name="remove_all_string">Remove All</string>
 </resources>
