@@ -119,10 +119,10 @@ public class DatabaseActivity extends AppCompatActivity {
 
             if (newQuantity < 0) {
                 makeToast("Quantity is Less Than 0!");
-            } else if (notUnique == null) {
-                makeToast("Product Name Doesn't Exist!");
-            } else
+            } else if (notUnique != null) {
                 check = true;
+            } else
+                makeToast("Product Name Doesn't Exist!");
         }
 
         if (check) {
@@ -134,7 +134,7 @@ public class DatabaseActivity extends AppCompatActivity {
 
             if (result) {
                 idView.setText(R.string.record_updated);
-                makeToast(product.getProductName() + " was updated.");
+                makeToast(productBox.getText().toString() + " was updated.");
                 productBox.setText("");
                 quantityBox.setText("");
             } else
