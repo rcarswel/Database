@@ -28,7 +28,6 @@ public class DatabaseActivity extends AppCompatActivity {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         boolean check = false;
         int quantity = -1;
-        Product product = null;
 
         if (productBox.getText().length() == 0) {
             makeToast("Product is Blank!");
@@ -48,7 +47,7 @@ public class DatabaseActivity extends AppCompatActivity {
         }
 
         if (check) {
-            product = new Product(productBox.getText().toString(), quantity);
+            Product product = new Product(productBox.getText().toString(), quantity);
             dbHandler.addProduct(product);
             idView.setText(R.string.record_added);
             makeToast(product.getProductName() + " was added.");
@@ -106,7 +105,6 @@ public class DatabaseActivity extends AppCompatActivity {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         boolean check = false;
         int newQuantity = -1;
-        Product product = null;
 
         if (productBox.getText().length() == 0) {
             makeToast("Product is Blank!");
