@@ -119,8 +119,8 @@ public class DatabaseActivity extends AppCompatActivity {
 
             if (newQuantity < 0) {
                 makeToast("Quantity is Less Than 0!");
-            } else if (notUnique != null) {
-                makeToast("Product Name Already Exist!");
+            } else if (notUnique == null) {
+                makeToast("Product Name Doesn't Exist!");
             } else
                 check = true;
         }
