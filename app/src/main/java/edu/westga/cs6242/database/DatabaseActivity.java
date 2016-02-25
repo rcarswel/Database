@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DatabaseActivity extends AppCompatActivity {
 
@@ -100,5 +101,9 @@ public class DatabaseActivity extends AppCompatActivity {
             quantityBox.setText("");
         } else
             idView.setText(R.string.no_match_found);
+    }
+
+    private void makeToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
