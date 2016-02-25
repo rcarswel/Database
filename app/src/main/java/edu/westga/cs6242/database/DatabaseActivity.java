@@ -26,6 +26,7 @@ public class DatabaseActivity extends AppCompatActivity {
 
     public void newProduct(View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        boolean check = false;
 
         int quantity =
                 Integer.parseInt(quantityBox.getText().toString());
@@ -33,44 +34,76 @@ public class DatabaseActivity extends AppCompatActivity {
         Product product =
                 new Product(productBox.getText().toString(), quantity);
 
-        dbHandler.addProduct(product);
-        idView.setText(R.string.record_added);
-        productBox.setText("");
-        quantityBox.setText("");
+        Product notUnique = dbHandler.findProduct(productBox.getText().toString());
+
+        if (productBox.getText().length() == 0) {
+            makeToast("Product is Blank!");
+        } else if (quantityBox.getText().length() == 0) {
+            makeToast("Quantity is Blank!");
+        } else if (quantity < 0) {
+            makeToast("Quantity is Less Than 0!");
+        } else if (notUnique == null) {
+            makeToast("Product Name Already Exist!");
+        } else
+            check = true;
+
+        if (check) {
+            dbHandler.addProduct(product);
+            idView.setText(R.string.record_added);
+            productBox.setText("");
+            quantityBox.setText("");
+        }
     }
 
     public void lookupProduct(View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        boolean check = false;
 
         Product product =
                 dbHandler.findProduct(productBox.getText().toString());
 
-        if (product != null) {
+        if (productBox.getText().length() == 0) {
+            makeToast("Product is Blank!");
+        } else if (product == null) {
+            makeToast("Product Name Doesn't Exist!");
+        } else
+            check = true;
+
+        if (check) {
             idView.setText(String.valueOf(product.getID()));
 
             quantityBox.setText(String.valueOf(product.getQuantity()));
-        } else {
-            idView.setText(R.string.no_match_found);
         }
     }
 
     public void removeProduct(View view) {
-        MyDBHandler dbHandler = new MyDBHandler(this, null,
-                null, 1);
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        boolean check = false;
 
-        boolean result = dbHandler.deleteProduct(
-                productBox.getText().toString());
+        Product product = dbHandler.findProduct(productBox.getText().toString());
 
-        if (result) {
-            idView.setText(R.string.record_deleted);
-            productBox.setText("");
-            quantityBox.setText("");
+        if (productBox.getText().length() == 0) {
+            makeToast("Product is Blank!");
+        } else if (product == null) {
+            makeToast("Product Name Doesn't Exist!");
         } else
-            idView.setText(R.string.no_match_found);
+            check = true;
+
+        if (check) {
+            boolean result = dbHandler.deleteProduct(
+                    productBox.getText().toString());
+
+            if (result) {
+                idView.setText(R.string.record_deleted);
+                productBox.setText("");
+                quantityBox.setText("");
+            }
+        }
     }
 
     public void updateProduct(View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        boolean check = false;
 
         int idNumber = Integer.parseInt(idView.getText().toString());
 
@@ -80,14 +113,29 @@ public class DatabaseActivity extends AppCompatActivity {
         Product newProduct =
                 new Product(idNumber, productBox.getText().toString(), newQuantity);
 
-        boolean result = dbHandler.updateProduct(newProduct);
+        Product notUnique = dbHandler.findProduct(productBox.getText().toString());
 
-        if (result) {
-            idView.setText(R.string.record_updated);
-            productBox.setText("");
-            quantityBox.setText("");
+        if (productBox.getText().length() == 0) {
+            makeToast("Product is Blank!");
+        } else if (quantityBox.getText().length() == 0) {
+            makeToast("Quantity is Blank!");
+        } else if (newQuantity < 0) {
+            makeToast("Quantity is Less Than 0!");
+        } else if (notUnique == null) {
+            makeToast("Product Name Already Exist!");
         } else
-            idView.setText(R.string.no_match_found);
+            check = true;
+
+        if (check) {
+            boolean result = dbHandler.updateProduct(newProduct);
+
+            if (result) {
+                idView.setText(R.string.record_updated);
+                productBox.setText("");
+                quantityBox.setText("");
+            } else
+                makeToast("No Matching Product ID!");
+        }
     }
 
     public void removeAll(View view) {
@@ -100,7 +148,7 @@ public class DatabaseActivity extends AppCompatActivity {
             productBox.setText("");
             quantityBox.setText("");
         } else
-            idView.setText(R.string.no_match_found);
+            makeToast("No Matching Product!");
     }
 
     private void makeToast(String message) {
