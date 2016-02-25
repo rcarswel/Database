@@ -104,6 +104,7 @@ public class DatabaseActivity extends AppCompatActivity {
     public void updateProduct(View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         boolean check = false;
+        int idNumber = 0;
         int newQuantity = -1;
 
         if (productBox.getText().length() == 0) {
@@ -111,20 +112,22 @@ public class DatabaseActivity extends AppCompatActivity {
         } else if (quantityBox.getText().length() == 0) {
             makeToast("Quantity is Blank!");
         } else {
+            idNumber = Integer.parseInt(idView.getText().toString());
+
             newQuantity = Integer.parseInt(quantityBox.getText().toString());
 
             Product notUnique = dbHandler.findProduct(productBox.getText().toString());
 
             if (newQuantity < 0) {
                 makeToast("Quantity is Less Than 0!");
-            } else if (notUnique != null) {
+            } else if (notUnique == null || notUnique.getID() == idNumber) {
                 check = true;
             } else
-                makeToast("Product Name Doesn't Exist!");
+                makeToast("Product Name Already Exist!");
         }
 
         if (check) {
-            int idNumber = Integer.parseInt(idView.getText().toString());
+            idNumber = Integer.parseInt(idView.getText().toString());
 
             Product newProduct = new Product(idNumber, productBox.getText().toString(), newQuantity);
 
